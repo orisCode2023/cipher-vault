@@ -58,21 +58,19 @@ export const encryptMessage = async (req, res) => {
 export const decryptMessage = async (req, res) => {
   try {
     const {username, password, messageId} = req.body
+    const intId = parseInt(messageId)
     const db = req.mongoDbConn;
-    const usersCollection = db.collection('users');
+    const usersCollection = db.collection("users");
     const user = await usersCollection.findOne({ 
         username: username, password: password
     });
-    if (!user) {
-      return res.status(404).json({ error: 'user not found' });
-    }
+    if (!user) res.status(404).json({ error: 'user not found' });
+    
     const mysqlConn = req.mysqlConn;
     
-    const message = await mysqlConn.query("SELECT * FROM messages WHERE id = ?", [messageId]);
-    
-    console.log(message)
-    const decryptMessage = decrypt(message.encrypted_text)
-    res.status(200).json({ msg: "success", data: {id: messageId, text: decryptMessage} });
+    const [message] = await mysqlConn.query("SELECT * FROM messages WHERE id = ?", [intId]);
+    const decryptMessage = decrypt(message[0].encrypted_text)
+    res.status(200).json({ msg: "success", data: {id: intId, text: decryptMessage} });
   } catch (err) {
     console.error(err);
     res.status(200).json({ msg: "CONNOT DECRYPT" + err.message, data: {id: messageId, text: null}});
