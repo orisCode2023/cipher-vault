@@ -4,7 +4,6 @@ import { initSqlDb } from './utils/sqlC.js';
 import { getMongoDb } from './utils/mongodbC.js';
 import { getSqlConn } from './utils/sqlC.js';
 
-// Import route modules for organizing endpoints
 import messageRoutes from './routes/messages-route.js';
 import usersRoutes from './routes/users-route.js';
 
@@ -19,13 +18,11 @@ app.use(async (req, res, next) => {
     next();
 });
 
-// Mount the product routes under the /api/products path
-// All product-related endpoints will be handled by productRoutes
-app.use('/api/products', productRoutes);
 
-// Mount the order routes under the /api/orders path
-// All order-related endpoints will be handled by orderRoutes
-app.use('/api/orders', orderRoutes);
+app.use('/api/auth/', usersRoutes);
+app.use('/api/users/', usersRoutes);
+app.use('/api/messages/', messageRoutes);
+
 
 
 app.get('/', (req, res) => {
@@ -43,10 +40,3 @@ async function startServer() {
 }
 
 startServer();
-
-// process.on('SIGINT', async () => {
-//     console.log('Shutting down...');
-//     if (mongoClient) await mongoClient.close();
-//     if (mysqlConnection) await mysqlConnection.end();
-//     process.exit(0);
-// });
