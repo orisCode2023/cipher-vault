@@ -5,8 +5,8 @@ import { getMongoDb } from './utils/mongodbC.js';
 import { getSqlConn } from './utils/sqlC.js';
 
 // Import route modules for organizing endpoints
-import productRoutes from './routes/products.js';
-import orderRoutes from './routes/orders.js';
+import messageRoutes from './routes/messages-route.js';
+import usersRoutes from './routes/users-route.js';
 
 const app = express();
 const PORT = 8000;

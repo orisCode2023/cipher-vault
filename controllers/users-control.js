@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import { count } from "node:console";
+
 
 // Create todo
 export const createUser = async (req, res) => {
@@ -34,6 +34,7 @@ export const createUser = async (req, res) => {
 
 
 export const authUser = async (req, res) => {
+    const {username, password} = req.body
     const db = req.mongoDbConn;
     const usersCollection = db.collection('users');
     const user = await usersCollection.findOne({ 
