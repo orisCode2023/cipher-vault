@@ -14,7 +14,6 @@ export async function initMongoDb() {
     mongoConn = mongocClient.db(DB_NAME);
     
     const usersCollection = mongoConn.collection(COLLECTION_NAME);
-
     await usersCollection.createIndex({ username: 1 }, { unique: true });
     
     console.log("Database initialized and unique index created on 'usrename' field");

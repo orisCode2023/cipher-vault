@@ -1,12 +1,12 @@
 import { ObjectId } from "bson";
 
 
-// Create todo
+
 export const createUser = async (req, res) => {
   try {
     const {username, password} = req.body
-    const mongoConn = req.mongoConn;
-    const usersCollection = mongoConn.collection('usres');
+    const mongoConn = req.mongoDbConn;
+    const usersCollection = mongoConn.collection('users');
 
     const newUser = {
       username,

@@ -1,9 +1,6 @@
 import express from 'express';
-import { initMongoDb } from './utils/mongodbC.js';
-import { initSqlDb } from './utils/sqlC.js';
-import { getMongoDb } from './utils/mongodbC.js';
-import { getSqlConn } from './utils/sqlC.js';
-
+import { initMongoDb, getMongoDb } from './utils/mongodbC.js';
+import { initSqlDb, getSqlConn } from './utils/sqlC.js';
 import messageRoutes from './routes/messages-route.js';
 import usersRoutes from './routes/users-route.js';
 
@@ -31,10 +28,10 @@ app.get('/', (req, res) => {
 
 
 async function startServer() {
-    await initMongoDb();
-    await initSqlDb();
-
-    app.listen(PORT, () => {
+    
+    app.listen(PORT,async () => {
+        await initMongoDb();
+        await initSqlDb();
         console.log(`Server running on http://localhost:${PORT}`);
     });
 }

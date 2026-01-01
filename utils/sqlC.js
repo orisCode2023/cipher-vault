@@ -10,7 +10,7 @@ export async function initSqlDb() {
 
   const CREATE_DB_QUERY = `CREATE DATABASE IF NOT EXISTS usersDb;`;
 
-  const USE_DB_QUERY = "USE messages;";
+  const USE_DB_QUERY = "USE usersDb;";
 
   const CREATE_TABLE_QUERY = `
       CREATE TABLE IF NOT EXISTS messages (
